@@ -32,7 +32,7 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    const downloadButton = document.getElementById("downloadButton");
+    const downloadButton = document.getElementById("generateButton");
     downloadButton.addEventListener("click", generatePDF);
   });
   
