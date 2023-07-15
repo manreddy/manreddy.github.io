@@ -7,11 +7,12 @@
 // Use this file to add JavaScript to your project
 
 // script to create and download pdf
+import { jsPDF } from "jspdf";
 document.addEventListener("DOMContentLoaded", function() {
     const generateButton = document.getElementById("generateButton");
     generateButton.addEventListener("click", generatePDF);
   });
-  import { jsPDF } from "jspdf";
+  
   function generatePDF(event) {
     event.preventDefault(); // Prevents the default behavior of the link
 
