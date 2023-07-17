@@ -30,48 +30,38 @@
 //     });
 //   }
 
-
-document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function() {
     const downloadButton = document.getElementById("generateButton");
-    downloadButton.addEventListener("click", generatePDF);
+    downloadButton.addEventListener("click", generateAndDownloadPDF);
   });
   
-  function generatePDF() {
-    const element = document.getElementById("resume");
-    const content = [];
+  function generateAndDownloadPDF() {
+    // Get the HTML section to convert to PDF
+    const section = document.getElementById("resume");
   
-    // Traverse the DOM section and add its content to the PDF
-    traverseDOMSection(element, content);
-  
+    // Create the PDF definition
     const docDefinition = {
-      content: content
+      content: [
+        {
+          layout: "lightHorizontalLines", // Add table borders
+          table: {
+            widths: ["*"], // Use full width of the page
+            body: [
+              [
+                {
+                  text: section.innerHTML, // Use the HTML content of the section
+                  alignment: "left",
+                  border: [false, false, false, false], // No border around the HTML content
+                  fillColor: "#ffffff", // Set background color of the table cell
+                },
+              ],
+            ],
+          },
+        },
+      ],
     };
   
+    // Generate and download the PDF
     pdfMake.createPdf(docDefinition).download("generated_pdf.pdf");
   }
   
-  function traverseDOMSection(element, content) {
-    const children = element.childNodes;
-  
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-  
-      if (child.nodeType === 1) {
-        const tagName = child.tagName.toLowerCase();
-  
-        // Add supported tags to the PDF content
-        if (tagName === "p" || tagName === "h1" || tagName === "h2" || tagName === "h3") {
-          content.push({
-            text: child.textContent,
-            style: tagName
-          });
-        } else if (tagName === "img") {
-          // Handle images separately if needed
-          // You can add image to the PDF using 'content.push({ image: imageSource })'
-        } else {
-          // Recursively traverse child elements
-          traverseDOMSection(child, content);
-        }
-      }
-    }
-  }
