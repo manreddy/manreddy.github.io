@@ -14,16 +14,12 @@
   
   function generatePDF() {
     const element = document.getElementById("resume");
-
-    // for (let i = 0; i < element.length; i++) {
-    //   elements[i].classList.add("text-gradient d-inline");
-    // }
   
     html2pdf()
       .set({
         filename: "IbrahimResume.pdf",
         margin: 10,
-        image: { type: "jpeg", quality: 1 },
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
       })
