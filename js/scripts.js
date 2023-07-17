@@ -15,9 +15,9 @@
   function generatePDF() {
     const element = document.getElementById("resume");
 
-    for (let i = 0; i < element.length; i++) {
-      elements[i].classList.add("text-gradient d-inline");
-    }
+    // for (let i = 0; i < element.length; i++) {
+    //   elements[i].classList.add("text-gradient d-inline");
+    // }
   
     html2pdf()
       .set({
