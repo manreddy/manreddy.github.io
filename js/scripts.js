@@ -34,6 +34,7 @@
 
 
     doc.html(htmlContent.innerHTML).save('test.pdf');
+    doc.html(htmlContent).save('test.pdf');
 
     // get resume section by id
     // const resumeElement = document.getElementById("resume");
