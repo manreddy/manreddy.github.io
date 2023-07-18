@@ -42,7 +42,7 @@
       },
       x: 0,
       y: 0,
-      html2canvas: { scale: 0.25 },
+      html2canvas: { scale: 1 },
     });
     // get resume section by id
     // const resumeElement = document.getElementById("resume");
