@@ -6,7 +6,7 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-import { jsPDF } from 'jspdf';
+// import { jsPDF } from 'jspdf';
 
 // code to change html to pdf
   document.addEventListener("DOMContentLoaded", function() {
