@@ -33,9 +33,17 @@
 
 
 
-    doc.html(htmlContent.innerHTML).save('test.pdf');
-    doc.html(htmlContent).save('test.pdf');
-
+    // doc.html(htmlContent.innerHTML).save('test.pdf');
+    // doc.html(htmlContent).save('test.pdf');
+    doc.html(htmlContent, {
+      callback: function (doc) {
+        doc.save();
+        setMode("html");
+      },
+      x: 0,
+      y: 0,
+      html2canvas: { scale: 0.25 },
+    });
     // get resume section by id
     // const resumeElement = document.getElementById("resume");
     // resumeElement.style.margin = "0";
