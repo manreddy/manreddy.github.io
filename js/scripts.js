@@ -44,7 +44,7 @@
     // get the generate button element, we need it to remove the download button
     // const generateButtonElement = resumeElement.querySelector("#generateButton");
 
-    if (resumeElement && generateButtonElement) {
+    // if (resumeElement && generateButtonElement) {
 
       // Clone the resumeSection element
       // const clonedResumeSection = resumeElement.cloneNode(true);
@@ -72,6 +72,6 @@
       // })
       // .from(htmlContent)
       // .save();
-    }
+    // }
   }
   
