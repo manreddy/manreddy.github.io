@@ -11,13 +11,14 @@
 // code to change html to pdf
   document.addEventListener("DOMContentLoaded", function() {
     const downloadButton = document.getElementById("generateButton");
+    
     downloadButton.addEventListener("click", generatePDF);
 
   });
   
   function generatePDF() {
 
-
+    window.jsPDF = window.jspdf.jsPDF
     const pdfContentEl = document.getElementById('resume');
     
     const doc = new jsPDF();
