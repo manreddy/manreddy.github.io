@@ -20,48 +20,58 @@
 
     window.jsPDF = window.jspdf.jsPDF
     const pdfContentEl = document.getElementById('resume');
-    
+    const generateButtonElement = pdfContentEl.querySelector("#generateButton");
+    const clonedResumeSection = pdfContentEl.cloneNode(true);
+
+    let clonedGenerateButtonElement = clonedResumeSection.querySelector("#generateButton");
+    if (clonedGenerateButtonElement) {
+      clonedGenerateButtonElement.remove();
+    }
+    const htmlContent = clonedResumeSection ? clonedResumeSection.innerHTML : "";
     const doc = new jsPDF();
     
-    doc.html(pdfContentEl.innerHTML).save('test.pdf');
+
+
+
+    doc.html(htmlContent.innerHTML).save('test.pdf');
 
     // get resume section by id
-    const resumeElement = document.getElementById("resume");
+    // const resumeElement = document.getElementById("resume");
     // resumeElement.style.margin = "0";
     // resumeElement.style.padding = "0";
     // resumeElement.style = "";
 
     // get the generate button element, we need it to remove the download button
-    const generateButtonElement = resumeElement.querySelector("#generateButton");
+    // const generateButtonElement = resumeElement.querySelector("#generateButton");
 
     if (resumeElement && generateButtonElement) {
 
       // Clone the resumeSection element
-      const clonedResumeSection = resumeElement.cloneNode(true);
+      // const clonedResumeSection = resumeElement.cloneNode(true);
 
       // Remove the generateButtonElement (download button) from the cloned resumeSection
-      let clonedGenerateButtonElement = clonedResumeSection.querySelector("#generateButton");
+      // let clonedGenerateButtonElement = clonedResumeSection.querySelector("#generateButton");
       // clonedGenerateButtonElement.style = "";
 
-      if (clonedGenerateButtonElement) {
-        clonedGenerateButtonElement.remove();
-      }
+      // if (clonedGenerateButtonElement) {
+      //   clonedGenerateButtonElement.remove();
+      // }
 
-      const htmlContent = clonedResumeSection ? clonedResumeSection.innerHTML : "";
-      // console.log(htmlContent)
+      // const htmlContent = clonedResumeSection ? clonedResumeSection.innerHTML : "";
+      // // console.log(htmlContent)
 
-      // Generate PDF from the modified clonedResumeSection
-      html2pdf()
-      .set({
-        filename: "IbrahimResume.pdf",
-        pagebreak: { mode: ['css'] },
-        // html2canvas: { scale: 1 },
-        // html2canvas: { allowTaint: true,scale: 2, logging:true },
-        // jsPDF: { unit: "mm", format: "a4", orientation: "portrait",zoom:2},
-        margin: [30,0,0,0]
-      })
-      .from(htmlContent)
-      .save();
+      // // Generate PDF from the modified clonedResumeSection
+      // html2pdf()
+      // .set({
+      //   filename: "IbrahimResume.pdf",
+      //   pagebreak: { mode: ['css'] },
+      //   // html2canvas: { scale: 1 },
+      //   // html2canvas: { allowTaint: true,scale: 2, logging:true },
+      //   // jsPDF: { unit: "mm", format: "a4", orientation: "portrait",zoom:2},
+      //   margin: [30,0,0,0]
+      // })
+      // .from(htmlContent)
+      // .save();
     }
   }
   
