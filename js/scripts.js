@@ -20,7 +20,7 @@
         filename: "IbrahimResume.pdf",
         margin: 10,
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 1 },
+        html2canvas: { allowTaint: true,scale: 1 },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
       })
       .from(element)
