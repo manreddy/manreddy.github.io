@@ -9,78 +9,133 @@
 // import { jsPDF } from './jsPDF/jspdf';
 
 // code to change html to pdf
-  document.addEventListener("DOMContentLoaded", function() {
-    const downloadButton = document.getElementById("generateButton");
-    
-    downloadButton.addEventListener("click", generatePDF);
+document.addEventListener("DOMContentLoaded", function() {
+  const downloadButton = document.getElementById("generateButton");
+  downloadButton.addEventListener("click", generatePDF);
+});
 
-  });
+
+function applyStyleToSections() {
+  const sections = document.querySelectorAll('.card');
+  const sections_card_body = document.querySelectorAll('.card-body');
+  const sections_row = document.querySelectorAll('.row');
+  const sections_col = document.querySelectorAll('.col');
+
+  // sections_col.forEach(function(section) {
+  //   // Apply custom styles to the sections
+  //   section.style.backgroundColor = 'lightblue';
+  //   section.style.border = '1px solid black';
+  //   section.style.display = 'inline-block';
+  //   section.style.margin = '0';
+  //   section.style.padding = '0';
+  //   // Add more custom styles as needed
+  // });
+
+
+  // sections_row.forEach(function(section) {
+  //   // Apply custom styles to the sections
+  //   section.style.backgroundColor = 'lightblue';
+  //   section.style.border = '1px solid black';
+  //   section.style.display = 'inline-block';
+  //   section.style.margin = '0';
+  //   section.style.padding = '0';
+  //   // Add more custom styles as needed
+  // });
   
-  function generatePDF() {
+  // sections_card_body.forEach(function(section) {
+  //   // Apply custom styles to the sections
+  //   section.style.backgroundColor = 'lightblue';
+  //   section.style.border = '1px solid black';
+  //   // section.style.display = 'inline-block';
+  //   // section.style.marginBottom = "0"
+  //   // section.style.margin = '0';
+  //   // section.style.padding = '0';
+  //   // Add more custom styles as needed
+  // });
 
-    window.jsPDF = window.jspdf.jsPDF
-    const pdfContentEl = document.getElementById('resume');
-    const generateButtonElement = pdfContentEl.querySelector("#generateButton");
-    const clonedResumeSection = pdfContentEl.cloneNode(true);
+  sections.forEach(function(section) {
+    // Apply custom styles to the sections
+    // section.style.backgroundColor = 'lightblue';
+    // section.style.border = '1px solid black';
+    // section.style.marginBottom = "0"
+    // section.style.display = 'inline-block';
+    // section.style.margin = '0';
+    // section.style.padding = '0';
+    // Add more custom styles as needed
+  });
+}
+// -------------------------------------------------------------------------
+function generatePDF() {
+// -------------------------------------------------------------------------
+  // get resume section by id
+  applyStyleToSections();
+  const resumeElement = document.getElementById("resume");
+  // resumeElement.style.margin = "0";
+  // resumeElement.style.padding = "0";
+  // resumeElement.style = "";
 
+  // get the generate button element, we need it to remove the download button
+  const generateButtonElement = resumeElement.querySelector("#generateButton");
+
+  if (resumeElement && generateButtonElement) {
+
+    // Clone the resumeSection element
+    const clonedResumeSection = resumeElement.cloneNode(true);
+
+    // Remove the generateButtonElement (download button) from the cloned resumeSection
     let clonedGenerateButtonElement = clonedResumeSection.querySelector("#generateButton");
+    // clonedGenerateButtonElement.style = "";
+
     if (clonedGenerateButtonElement) {
       clonedGenerateButtonElement.remove();
     }
+
     const htmlContent = clonedResumeSection ? clonedResumeSection.innerHTML : "";
-    const doc = new jsPDF();
+
+    const newElement = `<!DOCTYPE html>
+    <html>
+    <head>
+      <title>PDF Template</title>
+      <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>  
+
+    <div class="text-center mb-5" style="background-image: linear-gradient(315deg, #1e30f3, #e21e80); 
+    text-stroke: 2px #000;
+    opacity: 0.8;">
+    <h1 class="display-5 fw-bolder mb-0">
+    <span style="       
     
 
+    text-stroke: 2px #000;
+    background-clip: text; /* Apply gradient to text content */
+    -webkit-background-clip: text; /* Apply gradient to text content for WebKit browsers */
+    -webkit-text-fill-color: transparent; /* Make text transparent for WebKit browsers */ 
+    text-fill-color: transparent;
+    
+    ">
+    Resume
+    </span></h1>
+    </div> 
 
+    <div>
+    ` 
+    + htmlContent +
+    `
+    </div>
+    </body>
+    </html>`
+    console.log(newElement)
 
-    // doc.html(htmlContent.innerHTML).save('test.pdf');
-    // doc.html(htmlContent).save('test.pdf');
-    doc.html(htmlContent, {
-      callback: function (doc) {
-        doc.save();
-        setMode("html");
-      },
-      x: 0,
-      y: 0,
-      html2canvas: { scale: 1 },
-    });
-    // get resume section by id
-    // const resumeElement = document.getElementById("resume");
-    // resumeElement.style.margin = "0";
-    // resumeElement.style.padding = "0";
-    // resumeElement.style = "";
-
-    // get the generate button element, we need it to remove the download button
-    // const generateButtonElement = resumeElement.querySelector("#generateButton");
-
-    // if (resumeElement && generateButtonElement) {
-
-      // Clone the resumeSection element
-      // const clonedResumeSection = resumeElement.cloneNode(true);
-
-      // Remove the generateButtonElement (download button) from the cloned resumeSection
-      // let clonedGenerateButtonElement = clonedResumeSection.querySelector("#generateButton");
-      // clonedGenerateButtonElement.style = "";
-
-      // if (clonedGenerateButtonElement) {
-      //   clonedGenerateButtonElement.remove();
-      // }
-
-      // const htmlContent = clonedResumeSection ? clonedResumeSection.innerHTML : "";
-      // // console.log(htmlContent)
-
-      // // Generate PDF from the modified clonedResumeSection
-      // html2pdf()
-      // .set({
-      //   filename: "IbrahimResume.pdf",
-      //   pagebreak: { mode: ['css'] },
-      //   // html2canvas: { scale: 1 },
-      //   // html2canvas: { allowTaint: true,scale: 2, logging:true },
-      //   // jsPDF: { unit: "mm", format: "a4", orientation: "portrait",zoom:2},
-      //   margin: [30,0,0,0]
-      // })
-      // .from(htmlContent)
-      // .save();
-    // }
+    // Generate PDF from the modified clonedResumeSection
+    html2pdf()
+    .set({
+      filename: "IbrahimResume.pdf",
+      pagebreak: { mode: ['css'] },
+      // image: { type: 'jpeg', quality: 0.98 },
+      margin: [5,8,0,8]
+    })
+    .from(newElement)
+    .save();
   }
-  
+}
