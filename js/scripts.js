@@ -49,13 +49,35 @@ function generatePDF() {
     </head>
     <body>  
 
-    <div class="text-center mb-5">
-    <h1 class="display-5 fw-bolder mb-0">
-    <span>
-    Resume
-    </span></h1>
+    <div class="text-center">
+      <h1 class="display-5 fw-bolder mb-0">
+        <span>
+          Resume
+        </span>
+      </h1>
     </div> 
-
+    <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h2 class="text-primary fw-bolder mb-0">Personal</h2>
+                            </div>
+                            <div class="card shadow border-0 rounded-4 mb-3">
+                                <div class="card-body p-4">
+                                    <div class="row align-items-center gx-4">
+                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                            <div class="bg-light p-3 rounded-4">
+                                                <div class="text-primary fw-bolder"><h5>Ibrahim Manreddy</h5></div>
+                                                <div class="small fw-bolder">DevOps Engineer</div>
+                                                <div class="small">Quartier Militaire, Mauritius</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="mb-1">ibra.manreddy@gmail.com</div>
+                                            <div class="mb-1">+230 58247847</div>
+                                            <div class="mb-1">https://github.com/manreddy</div>
+                                            <div class="mb-1">https://www.linkedin.com/in/ibrahim-siddick-ahmad-manreddy-6a682565/</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
     <div>
     ` 
     + htmlContent +
