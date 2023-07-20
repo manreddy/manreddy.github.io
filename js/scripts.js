@@ -6,7 +6,41 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-// import { jsPDF } from './jsPDF/jspdf';
+const name = "Ibrahim Manreddy";
+const phoneNumber = "+230 58247847";
+const address = "Old Grand Port Road, Quartier Militaire, Mauritius";
+const email = "ibra.manreddy@gmail.com";
+const linkedin = "https://www.linkedin.com/in/ibrahim-siddick-ahmad-manreddy-6a682565";
+const github = "https://github.com/manreddy";
+
+// Get the reference to the HTML element
+const nameContainer = document.getElementById("name");
+const phoneContainer = document.getElementById("phone");
+const addressContainer = document.getElementById("myAddress");
+const emailContainer = document.getElementById("email");
+const linkedinContainer = document.getElementById("linkedin");
+const githubContainer = document.getElementById("github");
+
+// Update the content with the value of the name variable
+if (nameContainer && phoneContainer && addressContainer && emailContainer && linkedinContainer && githubContainer){
+
+  nameContainer.textContent = name;
+
+  addressContainer.textContent = address;
+
+  linkedinContainer.textContent = "Linkedin"
+  linkedinContainer.href = linkedin;
+  linkedinContainer.target = "_blank";
+
+  githubContainer.textContent = "Github"
+  githubContainer.href = github;
+  githubContainer.target = "_blank"
+
+  emailContainer.textContent = email;
+  emailContainer.href = "mailto:" + email
+
+  phoneContainer.textContent = phoneNumber;
+}
 
 // code to change html to pdf
 document.addEventListener("DOMContentLoaded", function() {
@@ -56,24 +90,24 @@ function generatePDF() {
         </span>
       </h1>
     </div> 
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center justify-content-between mb-2">
                                 <h2 class="text-primary fw-bolder mb-0">Personal</h2>
                             </div>
-                            <div class="card shadow border-0 rounded-4 mb-3">
-                                <div class="card-body p-4">
+                            <div class="card shadow border-0 rounded-4 mb-auto">
+                                <div class="card-body p-3">
                                     <div class="row align-items-center gx-4">
-                                        <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                            <div class="bg-light p-3 rounded-4">
-                                                <div class="text-primary fw-bolder"><h5>Ibrahim Manreddy</h5></div>
+                                        <div class="col text-center text-lg-start mb-2 mb-lg-0">
+                                            <div class="bg-light p-2 rounded-4">
+                                                <div class="text-primary fw-bolder"><h5>`+ name +`</h5></div>
                                                 <div class="small fw-bolder">DevOps Engineer</div>
-                                                <div class="small">Quartier Militaire, Mauritius</div>
+                                                <div class="small">`+ address +`</div>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <div class="mb-1">ibra.manreddy@gmail.com</div>
-                                            <div class="mb-1">+230 58247847</div>
-                                            <div class="mb-1">https://github.com/manreddy</div>
-                                            <div class="mb-1">https://www.linkedin.com/in/ibrahim-siddick-ahmad-manreddy-6a682565/</div>
+                                            <div class="mb-1">`+ email +`</div>
+                                            <div class="mb-1">`+ phoneNumber +`</div>
+                                            <div class="mb-1">`+ github +`</div>
+                                            <div class="mb-1">`+ linkedin +`</div>
                                         </div>
                                     </div>
                                 </div>
