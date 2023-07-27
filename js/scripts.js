@@ -1,4 +1,5 @@
-// create variables
+
+// create variables for resume and contact info sections
 const name = "Ibrahim Manreddy";
 const phoneNumber = "+230 58247847";
 const address = "Old Grand Port Road, Quartier Militaire, Mauritius";
@@ -35,17 +36,19 @@ if (nameContainer && phoneContainer && addressContainer && emailContainer && lin
   phoneContainer.textContent = phoneNumber;
 }
 
-// code to change html to pdf
+// event listener for download button
 document.addEventListener("DOMContentLoaded", function() {
   const downloadButton = document.getElementById("generateButton");
   downloadButton.addEventListener("click", generatePDF);
 });
 
+// function to generate pdf from html and download it
 function generatePDF() {
-  // get resume section by id
+  // get resume section from html by id
   const resumeElement = document.getElementById("resume");
 
-  // get the generate button element, we need it to remove the download button
+  // get the generate button element, we need it to remove the download button from the html
+  // so that it does not appear in the pdf
   const generateButtonElement = resumeElement.querySelector("#generateButton");
 
   if (resumeElement && generateButtonElement) {
@@ -56,12 +59,12 @@ function generatePDF() {
     let clonedGenerateButtonElement = clonedResumeSection.querySelector("#generateButton");
 
     if (clonedGenerateButtonElement) {
+      //remove download button
       clonedGenerateButtonElement.remove();
     }
-    // console.log(clonedResumeSection);
-
+    // convert cloned html to string
     const htmlContent = clonedResumeSection ? clonedResumeSection.innerHTML : "";
-    // console.log(htmlContent);
+    // add additional elements
     const newElement = `
     <!DOCTYPE html>
       <html>
@@ -105,14 +108,17 @@ function generatePDF() {
         </body>
       </html>`
 
+      // create parser
       const parser = new DOMParser();
+      // convert string element to html
       const doc = parser.parseFromString(newElement, "text/html");
 
-
+      // get sections
       const allDiv = doc.querySelectorAll("div")
       const cardElement = doc.querySelectorAll(".card")
       const h2Elements = doc.querySelectorAll("h2");
       
+      // loop through them and make changes accordingly, these will be reflected in the pdf
       allDiv.forEach((div) => {
         div.style.setProperty("padding-top","0px","important");
         div.style.setProperty("margin-top","0px","important");
@@ -125,24 +131,17 @@ function generatePDF() {
       });
 
       cardElement.forEach((div) => {
-        // div.style.setProperty("border", "2px", "important");
-        // div.style.setProperty("border", "2px solid rgba(var(--bs-border-color))", "important");
-        // div.style.setProperty("class","shadow","important");
-        // div.style.setProperty("background-color","rgba(var(--bs-light-rgb))","important");
         div.style.setProperty("font-size","10px","important");
-        // div.style.setProperty("padding","0px","important");
-        // console.log(div);
       });
 
+    // convert html to pdf
     html2pdf()
     .set({
       filename: "IbrahimResume.pdf",
       pagebreak: { mode: ['css'] },
       margin: [5,9,0,8]
     })
-    // .from(newElement.replace(/border-0/g, 'border-primary'))
     .from(doc.documentElement.outerHTML)
-    // .from(newElement)
     .save();
   }
 }
