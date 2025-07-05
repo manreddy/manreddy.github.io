@@ -93,6 +93,10 @@
 </head>
 <body>
   <div class="toggle-container">
+    <label class="switch">
+      <input type="checkbox" onclick="toggleDarkMode()" />
+      <span class="slider"></span>
+    </label>
     <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
   </div>
 
@@ -170,6 +174,11 @@
     AOS.init();
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
+    }
+  </script>
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
     }
   </script>
 </body>
