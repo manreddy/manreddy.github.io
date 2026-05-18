@@ -206,48 +206,40 @@
 
       @page { size: A4; margin: 0; }
 
-      .screen-wrapper { padding: 0; max-width: 100%; overflow: hidden; }
-      .cv-card { border: none; border-radius: 0; box-shadow: none; background: #fff; overflow: hidden; }
+      .screen-wrapper { padding: 0; max-width: 100%; }
+      .cv-card { border: none; border-radius: 0; box-shadow: none; background: #fff; }
 
-      /* A4 at 96dpi = 794×1123px.
-         We set .cv to exactly 794px wide and use padding/font sizes
-         calibrated to fill the full 1123px height. */
+      /* JS will apply the exact scale via inline style before print.
+         These rules just set base dimensions. */
       .cv {
         width: 794px;
-        min-height: 1123px;
         padding: 1.1cm 1.5cm 1cm;
         box-sizing: border-box;
+        transform-origin: top left;
       }
 
-      .cv-header { padding-bottom: 0.7rem; margin-bottom: 0.9rem; }
-      .cv-name { font-size: 1.75rem; }
-      .cv-title { font-size: 0.78rem; margin-top: 0.25rem; }
-      .cv-contacts { font-size: 0.67rem; line-height: 1.7; }
-
       .cv-section { margin-bottom: 0.85rem; }
-      .cv-section-title { font-size: 0.63rem; padding-bottom: 0.22rem; margin-bottom: 0.5rem; }
-
-      .cv-summary { font-size: 0.8rem; line-height: 1.58; }
-
-      .cv-skills-grid { gap: 0.28rem 1.2rem; }
-      .cv-skill-label { font-size: 0.6rem; margin-bottom: 0.08rem; }
-      .cv-skill-value { font-size: 0.76rem; }
-
-      .cv-job { margin-bottom: 0.65rem; }
+      .cv-section-title { font-size: 0.65rem; padding-bottom: 0.22rem; margin-bottom: 0.52rem; }
+      .cv-header { padding-bottom: 0.72rem; margin-bottom: 0.9rem; }
+      .cv-name { font-size: 1.8rem; }
+      .cv-title { font-size: 0.8rem; margin-top: 0.25rem; }
+      .cv-contacts { font-size: 0.68rem; line-height: 1.72; }
+      .cv-summary { font-size: 0.82rem; line-height: 1.58; }
+      .cv-skills-grid { gap: 0.3rem 1.2rem; }
+      .cv-skill-label { font-size: 0.61rem; margin-bottom: 0.08rem; }
+      .cv-skill-value { font-size: 0.77rem; }
+      .cv-job { margin-bottom: 0.68rem; }
       .cv-job-header { gap: 0.12rem; margin-bottom: 0.12rem; }
-      .cv-job-title { font-size: 0.84rem; }
-      .cv-job-company { font-size: 0.8rem; }
-      .cv-job-period { font-size: 0.62rem; }
+      .cv-job-title { font-size: 0.86rem; }
+      .cv-job-company { font-size: 0.82rem; }
+      .cv-job-period { font-size: 0.63rem; }
       .cv-job ul { padding-left: 0.9rem; margin-top: 0.18rem; }
-      .cv-job li { font-size: 0.77rem; line-height: 1.48; margin-bottom: 0.09rem; }
-
-      .cv-edu-item { margin-bottom: 0.48rem; }
-      .cv-edu-degree { font-size: 0.82rem; }
-      .cv-edu-school { font-size: 0.66rem; }
-      .cv-edu-year { font-size: 0.61rem; }
-
-      .cv-cert-list li { font-size: 0.77rem; padding: 0.18rem 0; }
-
+      .cv-job li { font-size: 0.79rem; line-height: 1.48; margin-bottom: 0.09rem; }
+      .cv-edu-item { margin-bottom: 0.5rem; }
+      .cv-edu-degree { font-size: 0.84rem; }
+      .cv-edu-school { font-size: 0.67rem; }
+      .cv-edu-year { font-size: 0.62rem; }
+      .cv-cert-list li { font-size: 0.79rem; padding: 0.19rem 0; }
       .two-col { gap: 1.8rem; }
     }
 
@@ -469,11 +461,33 @@
   </div><!-- /screen-wrapper -->
 
   <script>
+    // Parallax blobs on screen
     document.addEventListener('mousemove', e => {
       const x = (e.clientX / window.innerWidth  - 0.5) * 20;
       const y = (e.clientY / window.innerHeight - 0.5) * 20;
       document.querySelector('.blob-1').style.transform = `translate(${x}px,${y}px)`;
       document.querySelector('.blob-2').style.transform = `translate(${-x}px,${-y}px)`;
+    });
+
+    // Auto-scale CV to fit exactly one A4 page before printing.
+    // A4 at 96dpi = 794 × 1123px.
+    function scaleCvForPrint() {
+      const cv = document.querySelector('.cv');
+      if (!cv) return;
+      cv.style.transform = ''; // reset first
+      const A4_HEIGHT = 1123;
+      const naturalHeight = cv.scrollHeight;
+      if (naturalHeight > A4_HEIGHT) {
+        const scale = A4_HEIGHT / naturalHeight;
+        cv.style.transform = `scale(${scale})`;
+        cv.style.transformOrigin = 'top left';
+      }
+    }
+
+    window.addEventListener('beforeprint', scaleCvForPrint);
+    window.addEventListener('afterprint', () => {
+      const cv = document.querySelector('.cv');
+      if (cv) cv.style.transform = '';
     });
   </script>
 </body>
