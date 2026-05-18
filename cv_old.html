@@ -198,6 +198,61 @@
     /* TWO COL */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 
+    /* ── PRINT STYLES ── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      html, body { background: #fff !important; margin: 0; padding: 0; }
+      body::before, .blob, nav, .screen-wrapper > .page-title, .screen-wrapper > p { display: none !important; }
+
+      @page { size: A4 portrait; margin: 0; }
+
+      .screen-wrapper { padding: 0; width: 210mm; max-width: 210mm; }
+      .cv-card { border: none; border-radius: 0; box-shadow: none; }
+
+      /* True A4: 210mm wide, 297mm tall, all sizes in pt/mm */
+      .cv {
+        width: 210mm;
+        min-height: 297mm;
+        max-height: 297mm;
+        overflow: hidden;
+        padding: 11mm 15mm 9mm;
+        box-sizing: border-box;
+        background: #fff;
+      }
+
+      .cv-header { padding-bottom: 4mm; margin-bottom: 4.5mm; border-bottom-width: 0.6mm; }
+      .cv-name { font-size: 17pt; line-height: 1.1; }
+      .cv-title { font-size: 7pt; margin-top: 1.2mm; }
+      .cv-contacts { font-size: 6.2pt; line-height: 1.65; }
+
+      .cv-section { margin-bottom: 4mm; }
+      .cv-section-title { font-size: 5.8pt; padding-bottom: 1.2mm; margin-bottom: 2.2mm; }
+
+      .cv-summary { font-size: 7.5pt; line-height: 1.52; }
+
+      .cv-skills-grid { gap: 1.2mm 4mm; }
+      .cv-skill-label { font-size: 5.5pt; margin-bottom: 0.3mm; }
+      .cv-skill-value { font-size: 7.2pt; }
+
+      .cv-job { margin-bottom: 3mm; }
+      .cv-job-header { margin-bottom: 0.6mm; gap: 0.5mm; }
+      .cv-job-title { font-size: 7.8pt; }
+      .cv-job-company { font-size: 7.5pt; }
+      .cv-job-period { font-size: 5.8pt; }
+      .cv-job ul { padding-left: 3.5mm; margin-top: 0.8mm; }
+      .cv-job li { font-size: 7.2pt; line-height: 1.42; margin-bottom: 0.4mm; }
+
+      .cv-edu-item { margin-bottom: 2mm; }
+      .cv-edu-degree { font-size: 7.8pt; }
+      .cv-edu-school { font-size: 6.2pt; }
+      .cv-edu-year { font-size: 5.8pt; }
+
+      .cv-cert-list li { font-size: 7.2pt; padding: 0.6mm 0; }
+      .cv-cert-list li::before { font-size: 5.5pt; }
+
+      .two-col { gap: 7mm; }
+    }
+
     @media (max-width: 600px) {
       .cv { padding: 1.5rem; }
       .cv-header { grid-template-columns: 1fr; }
@@ -219,7 +274,7 @@
       <ul class="nav-links">
         <li class="hide-mobile"><a href="index.html">← Portfolio</a></li>
         <li>
-          <button class="btn-download" id="downloadBtn" onclick="downloadPDF()">↓ Download PDF</button>
+          <button class="btn-download" onclick="window.print()">↓ Download PDF</button>
         </li>
       </ul>
     </div>
@@ -415,58 +470,13 @@
     </div><!-- /cv-card -->
   </div><!-- /screen-wrapper -->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    // Parallax blobs
     document.addEventListener('mousemove', e => {
       const x = (e.clientX / window.innerWidth  - 0.5) * 20;
       const y = (e.clientY / window.innerHeight - 0.5) * 20;
       document.querySelector('.blob-1').style.transform = `translate(${x}px,${y}px)`;
       document.querySelector('.blob-2').style.transform = `translate(${-x}px,${-y}px)`;
     });
-
-    async function downloadPDF() {
-      const btn = document.getElementById('downloadBtn');
-      btn.textContent = 'Generating…';
-      btn.disabled = true;
-
-      const cv = document.querySelector('.cv');
-
-      // Snapshot at 2x for sharpness
-      const canvas = await html2canvas(cv, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#ffffff',
-        logging: false,
-      });
-
-      const { jsPDF } = window.jspdf;
-      // A4 in mm
-      const A4_W = 210;
-      const A4_H = 297;
-
-      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-
-      const imgData  = canvas.toDataURL('image/jpeg', 1.0);
-      const imgW     = A4_W;                          // fill full width
-      const imgH     = (canvas.height / canvas.width) * imgW;
-
-      // If taller than A4, scale down to fit
-      if (imgH > A4_H) {
-        const scale = A4_H / imgH;
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgW * scale, A4_H);
-      } else {
-        // Centre vertically
-        const yOffset = (A4_H - imgH) / 2;
-        pdf.addImage(imgData, 'JPEG', 0, yOffset, imgW, imgH);
-      }
-
-      pdf.save('Ibrahim_Manreddy_CV.pdf');
-
-      btn.textContent = '↓ Download PDF';
-      btn.disabled = false;
-    }
   </script>
 </body>
 </html>
