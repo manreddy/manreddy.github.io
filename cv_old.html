@@ -201,43 +201,24 @@
     /* ── PRINT STYLES ── */
     @media print {
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      html, body { background: #fff !important; margin: 0; padding: 0; font-size: 13px; }
+      html, body { background: #fff !important; margin: 0; padding: 0; }
       body::before, .blob, nav, .screen-wrapper > .page-title, .screen-wrapper > p { display: none !important; }
 
-      @page { size: A4; margin: 0; }
-
       .screen-wrapper { padding: 0; max-width: 100%; }
-      .cv-card { border: none; border-radius: 0; box-shadow: none; background: #fff; }
-      .cv { padding: 1cm 1.4cm; }
+      .cv-card {
+        border: none; border-radius: 0; box-shadow: none;
+        background: #fff;
+      }
+      .cv { padding: 1.6cm 1.8cm; }
 
-      .cv-header { padding-bottom: 0.6rem; margin-bottom: 0.8rem; }
-      .cv-name { font-size: 1.45rem; }
-      .cv-title { font-size: 0.68rem; margin-top: 0.2rem; }
-      .cv-contacts { font-size: 0.6rem; line-height: 1.6; }
+      @page {
+        size: A4;
+        margin: 0;
+      }
 
-      .cv-section { margin-bottom: 0.7rem; }
-      .cv-section-title { font-size: 0.58rem; padding-bottom: 0.2rem; margin-bottom: 0.5rem; }
-
-      .cv-summary { font-size: 0.72rem; line-height: 1.5; }
-
-      .cv-skills-grid { gap: 0.25rem 1rem; }
-      .cv-skill-label { font-size: 0.55rem; margin-bottom: 0.05rem; }
-      .cv-skill-value { font-size: 0.68rem; }
-
-      .cv-job { margin-bottom: 0.55rem; }
-      .cv-job-header { gap: 0.1rem; margin-bottom: 0.1rem; }
-      .cv-job-title { font-size: 0.76rem; }
-      .cv-job-company { font-size: 0.72rem; }
-      .cv-job-period { font-size: 0.56rem; }
-      .cv-job ul { padding-left: 0.8rem; margin-top: 0.15rem; }
-      .cv-job li { font-size: 0.68rem; line-height: 1.4; margin-bottom: 0.06rem; }
-
-      .cv-edu-item { margin-bottom: 0.4rem; }
-      .cv-edu-degree { font-size: 0.74rem; }
-      .cv-edu-school { font-size: 0.6rem; }
-      .cv-edu-year { font-size: 0.56rem; }
-
-      .two-col { gap: 1.2rem; }
+      .cv-name { font-size: 1.7rem; }
+      .cv-section { margin-bottom: 1.1rem; }
+      .cv-job { margin-bottom: 0.8rem; }
     }
 
     @media (max-width: 600px) {
