@@ -431,29 +431,12 @@
       btn.disabled = true;
 
       const cv = document.querySelector('.cv');
-
-      // Pin to a fixed pixel width before capture so html2canvas
-      // sees a symmetric layout — 794px = A4 at 96dpi
-      const prevWidth    = cv.style.width;
-      const prevMaxWidth = cv.style.maxWidth;
-      const prevMargin   = cv.style.margin;
-      cv.style.width    = '794px';
-      cv.style.maxWidth = '794px';
-      cv.style.margin   = '0';
-
       const canvas = await html2canvas(cv, {
         scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
         logging: false,
-        width:  794,
-        windowWidth: 794,
       });
-
-      // Restore original styles
-      cv.style.width    = prevWidth;
-      cv.style.maxWidth = prevMaxWidth;
-      cv.style.margin   = prevMargin;
 
       const { jsPDF } = window.jspdf;
       const A4_W = 210, A4_H = 297;
