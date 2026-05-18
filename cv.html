@@ -206,45 +206,49 @@
 
       @page { size: A4; margin: 0; }
 
-      .screen-wrapper { padding: 0; max-width: 100%; }
-      .cv-card { border: none; border-radius: 0; box-shadow: none; background: #fff; }
+      .screen-wrapper { padding: 0; max-width: 100%; overflow: hidden; }
+      .cv-card { border: none; border-radius: 0; box-shadow: none; background: #fff; overflow: hidden; }
 
+      /* A4 at 96dpi = 794×1123px.
+         We set .cv to exactly 794px wide and use padding/font sizes
+         calibrated to fill the full 1123px height. */
       .cv {
-        padding: 1.8cm 2cm;
-        width: 860px;
-        transform-origin: top left;
-        transform: scale(0.99);
-        page-break-inside: avoid;
+        width: 794px;
+        min-height: 1123px;
+        padding: 1.1cm 1.5cm 1cm;
+        box-sizing: border-box;
       }
 
-      .cv-header { padding-bottom: 0.9rem; margin-bottom: 1.1rem; }
-      .cv-name { font-size: 1.9rem; }
-      .cv-title { font-size: 0.82rem; margin-top: 0.35rem; }
-      .cv-contacts { font-size: 0.7rem; line-height: 1.75; }
+      .cv-header { padding-bottom: 0.7rem; margin-bottom: 0.9rem; }
+      .cv-name { font-size: 1.75rem; }
+      .cv-title { font-size: 0.78rem; margin-top: 0.25rem; }
+      .cv-contacts { font-size: 0.67rem; line-height: 1.7; }
 
-      .cv-section { margin-bottom: 1rem; }
-      .cv-section-title { font-size: 0.68rem; padding-bottom: 0.25rem; margin-bottom: 0.6rem; }
+      .cv-section { margin-bottom: 0.85rem; }
+      .cv-section-title { font-size: 0.63rem; padding-bottom: 0.22rem; margin-bottom: 0.5rem; }
 
-      .cv-summary { font-size: 0.82rem; line-height: 1.6; }
+      .cv-summary { font-size: 0.8rem; line-height: 1.58; }
 
-      .cv-skills-grid { gap: 0.35rem 1.5rem; }
-      .cv-skill-label { font-size: 0.62rem; margin-bottom: 0.1rem; }
-      .cv-skill-value { font-size: 0.78rem; }
+      .cv-skills-grid { gap: 0.28rem 1.2rem; }
+      .cv-skill-label { font-size: 0.6rem; margin-bottom: 0.08rem; }
+      .cv-skill-value { font-size: 0.76rem; }
 
-      .cv-job { margin-bottom: 0.75rem; }
-      .cv-job-header { gap: 0.15rem; margin-bottom: 0.15rem; }
-      .cv-job-title { font-size: 0.86rem; }
-      .cv-job-company { font-size: 0.82rem; }
-      .cv-job-period { font-size: 0.64rem; }
-      .cv-job ul { padding-left: 1rem; margin-top: 0.2rem; }
-      .cv-job li { font-size: 0.78rem; line-height: 1.5; margin-bottom: 0.1rem; }
+      .cv-job { margin-bottom: 0.65rem; }
+      .cv-job-header { gap: 0.12rem; margin-bottom: 0.12rem; }
+      .cv-job-title { font-size: 0.84rem; }
+      .cv-job-company { font-size: 0.8rem; }
+      .cv-job-period { font-size: 0.62rem; }
+      .cv-job ul { padding-left: 0.9rem; margin-top: 0.18rem; }
+      .cv-job li { font-size: 0.77rem; line-height: 1.48; margin-bottom: 0.09rem; }
 
-      .cv-edu-item { margin-bottom: 0.55rem; }
-      .cv-edu-degree { font-size: 0.84rem; }
-      .cv-edu-school { font-size: 0.68rem; }
-      .cv-edu-year { font-size: 0.62rem; }
+      .cv-edu-item { margin-bottom: 0.48rem; }
+      .cv-edu-degree { font-size: 0.82rem; }
+      .cv-edu-school { font-size: 0.66rem; }
+      .cv-edu-year { font-size: 0.61rem; }
 
-      .two-col { gap: 1.5rem; }
+      .cv-cert-list li { font-size: 0.77rem; padding: 0.18rem 0; }
+
+      .two-col { gap: 1.8rem; }
     }
 
     @media (max-width: 600px) {
@@ -435,7 +439,6 @@
 
           <div class="cv-section">
             <div class="cv-section-title">Education</div>
-
             <div class="cv-edu-item">
               <div class="cv-edu-degree">MSc in Applied Software Technologies</div>
               <div class="cv-edu-school">University of Mauritius</div>
@@ -446,6 +449,17 @@
               <div class="cv-edu-school">University of Mauritius</div>
               <div class="cv-edu-year">2013 – 2017</div>
             </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Interests</div>
+            <ul class="cv-cert-list">
+              <li>Fishing</li>
+              <li>Coding</li>
+              <li>Hunting</li>
+              <li>Learning</li>
+              <li>Cars</li>
+            </ul>
           </div>
 
         </div>
