@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ibrahim Manreddy · CV</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0e13'/%3E%3Crect x='1' y='1' width='30' height='30' rx='5' fill='none' stroke='%2300e5ff' stroke-width='1.5' opacity='0.6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='monospace' font-weight='700' font-size='14' fill='%2300e5ff'%3EIM%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── SCREEN STYLES ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0b0e13;
+      --surface: #111520;
+      --border:  #1e2535;
+      --accent:  #00e5ff;
+      --accent2: #7b61ff;
+      --green:   #39ff7a;
+      --text:    #c8d0e0;
+      --dim:     #5a6478;
+      --heading: #eef1f8;
+      --mono:    'Space Mono', monospace;
+      --sans:    'Syne', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999; opacity: 0.35;
+    }
+
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.10; }
+    .blob-1 { width: 500px; height: 500px; background: #7b61ff; top: -150px; right: -150px; }
+    .blob-2 { width: 400px; height: 400px; background: #00e5ff; bottom: 0; left: -100px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      background: rgba(11,14,19,0.75);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
+    .nav-logo span { color: var(--dim); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-family: var(--mono); font-size: 0.75rem; color: var(--dim);
+      text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 1.1rem; border-radius: 4px;
+      background: var(--accent); color: #000;
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.06em; text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-download:hover { background: #33ecff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,229,255,0.25); }
+
+    /* PAGE WRAPPER */
+    .screen-wrapper {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 80px 2rem 4rem;
+    }
+
+    .page-title {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .page-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .page-title .num { color: var(--accent2); }
+
+    /* CV CARD */
+    .cv-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* ── CV CONTENT (shared screen + print) ── */
+    .cv {
+      padding: 3rem 3.5rem;
+      font-family: 'Syne', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+    }
+
+    /* HEADER */
+    .cv-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 2.5px solid #00c4d8;
+    }
+    .cv-name {
+      font-size: 2rem; font-weight: 800; color: #0b0e1a; line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .cv-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem; color: #5a6478;
+      margin-top: 0.4rem; letter-spacing: 0.06em;
+    }
+    .cv-contacts {
+      text-align: right;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; color: #5a6478; line-height: 1.8;
+    }
+    .cv-contacts a { color: #0077b5; text-decoration: none; }
+
+    /* SECTION */
+    .cv-section { margin-bottom: 1.4rem; }
+    .cv-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: #00a8bf;
+      border-bottom: 1px solid #e0e8f0;
+      padding-bottom: 0.3rem; margin-bottom: 0.8rem;
+    }
+
+    /* SUMMARY */
+    .cv-summary { font-size: 0.82rem; color: #333; line-height: 1.65; }
+
+    /* SKILLS GRID */
+    .cv-skills-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem 1.5rem;
+    }
+    .cv-skill-group {}
+    .cv-skill-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: #7b61ff; font-weight: 700; margin-bottom: 0.15rem;
+    }
+    .cv-skill-value { font-size: 0.78rem; color: #1a1a2e; }
+
+    /* EXPERIENCE */
+    .cv-job { margin-bottom: 1rem; }
+    .cv-job-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      flex-wrap: wrap; gap: 0.2rem; margin-bottom: 0.15rem;
+    }
+    .cv-job-title { font-size: 0.88rem; font-weight: 700; color: #0b0e1a; }
+    .cv-job-company { font-size: 0.82rem; color: #00a8bf; font-weight: 700; }
+    .cv-job-period {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; color: #9aa3b0;
+    }
+    .cv-job-location { font-family: 'Space Mono', monospace; font-size: 0.62rem; color: #9aa3b0; }
+    .cv-job ul { padding-left: 1rem; margin-top: 0.3rem; }
+    .cv-job li { font-size: 0.78rem; color: #333; line-height: 1.55; margin-bottom: 0.12rem; }
+
+    /* EDUCATION */
+    .cv-edu-item { margin-bottom: 0.7rem; }
+    .cv-edu-degree { font-size: 0.85rem; font-weight: 700; color: #0b0e1a; }
+    .cv-edu-school {
+      font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #5a6478;
+    }
+    .cv-edu-year { font-family: 'Space Mono', monospace; font-size: 0.62rem; color: #9aa3b0; }
+
+    /* CERTS */
+    .cv-cert-list { list-style: none; padding: 0; }
+    .cv-cert-list li {
+      font-size: 0.78rem; color: #333; padding: 0.18rem 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .cv-cert-list li::before { content: '▸'; color: #7b61ff; font-size: 0.65rem; flex-shrink: 0; }
+
+    /* TWO COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      html, body { background: #fff !important; margin: 0; padding: 0; }
+      body::before, .blob, nav, .screen-wrapper > .page-title, .screen-wrapper > p { display: none !important; }
+
+      .screen-wrapper { padding: 0; max-width: 100%; }
+      .cv-card {
+        border: none; border-radius: 0; box-shadow: none;
+        background: #fff;
+      }
+      .cv { padding: 1.6cm 1.8cm; }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .cv-name { font-size: 1.7rem; }
+      .cv-section { margin-bottom: 1.1rem; }
+      .cv-job { margin-bottom: 0.8rem; }
+    }
+
+    @media (max-width: 600px) {
+      .cv { padding: 1.5rem; }
+      .cv-header { grid-template-columns: 1fr; }
+      .cv-contacts { text-align: left; }
+      .cv-skills-grid { grid-template-columns: 1fr 1fr; }
+      .two-col { grid-template-columns: 1fr; gap: 0; }
+      .nav-links .hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo"><span>~/</span>ibrahim.manreddy</span>
+      <ul class="nav-links">
+        <li class="hide-mobile"><a href="index.html">← Portfolio</a></li>
+        <li>
+          <button class="btn-download" onclick="window.print()">↓ Download PDF</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="screen-wrapper">
+    <div class="page-title"><span class="num">CV</span> Curriculum Vitae</div>
+
+    <div class="cv-card">
+      <!-- ════════════════════════════════════════
+           CV CONTENT — this is what prints
+      ═══════════════════════════════════════════ -->
+      <div class="cv">
+
+        <!-- HEADER -->
+        <div class="cv-header">
+          <div>
+            <div class="cv-name">Ibrahim Manreddy</div>
+            <div class="cv-title">DevOps Engineer · AWS · Terraform · CI/CD · Remote-Friendly</div>
+          </div>
+          <div class="cv-contacts">
+            <div>+230 5824 7847</div>
+            <div><a href="mailto:ibra.manreddy@gmail.com">ibra.manreddy@gmail.com</a></div>
+            <div><a href="https://www.linkedin.com/in/ibrahim-manreddy-6a682565">linkedin.com/in/ibrahim-manreddy</a></div>
+            <div><a href="https://github.com/manreddy">github.com/manreddy</a></div>
+            <div><a href="https://manreddy.github.io">manreddy.github.io</a></div>
+            <div>Mauritius (UTC+4)</div>
+          </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="cv-section">
+          <div class="cv-section-title">Profile</div>
+          <p class="cv-summary">
+            DevOps Engineer based in Mauritius with 5+ years of experience designing cloud infrastructure, automating deployments, and improving system reliability. Hands-on expertise across AWS, Azure, Terraform, GitHub Actions, and Splunk. Comfortable working across the full infrastructure stack — from writing Python scripts and managing IaC to debugging production incidents. Strong communicator in remote-first, async-friendly environments. Open to remote DevOps roles focused on scalable, secure cloud architecture.
+          </p>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="cv-section">
+          <div class="cv-section-title">Technical Skills</div>
+          <div class="cv-skills-grid">
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">Cloud</div>
+              <div class="cv-skill-value">AWS, Azure</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">IaC</div>
+              <div class="cv-skill-value">Terraform</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">CI/CD</div>
+              <div class="cv-skill-value">GitHub Actions, Azure DevOps, Jenkins</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">Containers</div>
+              <div class="cv-skill-value">Docker, Kubernetes (EKS, AKS)</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">Scripting</div>
+              <div class="cv-skill-value">Python, Bash</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">Monitoring</div>
+              <div class="cv-skill-value">Splunk</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">Collaboration</div>
+              <div class="cv-skill-value">Jira, Confluence</div>
+            </div>
+            <div class="cv-skill-group">
+              <div class="cv-skill-label">Languages</div>
+              <div class="cv-skill-value">English (Full Professional), French (Professional)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="cv-section">
+          <div class="cv-section-title">Experience</div>
+
+          <div class="cv-job">
+            <div class="cv-job-header">
+              <div>
+                <span class="cv-job-title">DevOps Engineer</span>
+                &nbsp;·&nbsp;
+                <span class="cv-job-company">TotalEnergies Mobility Services International Ltd (TEMSI)</span>
+              </div>
+              <span class="cv-job-period">June 2023 – Present · Mauritius</span>
+            </div>
+            <ul>
+              <li>Designed and implemented automated CI/CD pipelines using GitHub Actions, accelerating deployment cycles and improving release reliability.</li>
+              <li>Developed and maintained infrastructure as code (IaC) with Terraform for provisioning cloud resources in AWS.</li>
+              <li>Monitored pipeline performance and optimised processes to reduce deployment failures and downtime.</li>
+            </ul>
+          </div>
+
+          <div class="cv-job">
+            <div class="cv-job-header">
+              <div>
+                <span class="cv-job-title">DevOps Engineer</span>
+                &nbsp;·&nbsp;
+                <span class="cv-job-company">ELCA Mauritius</span>
+              </div>
+              <span class="cv-job-period">June 2022 – May 2023 · Mauritius</span>
+            </div>
+            <ul>
+              <li>Built and deployed product updates across multiple environments.</li>
+              <li>Configured, monitored, and maintained environment health; identified and resolved CI/CD issues.</li>
+              <li>Coordinated with distributed teams across locations to resolve cross-environment issues.</li>
+              <li>Assisted with installation and configuration of Tosca.</li>
+            </ul>
+          </div>
+
+          <div class="cv-job">
+            <div class="cv-job-header">
+              <div>
+                <span class="cv-job-title">Senior Systems Engineer</span>
+                &nbsp;·&nbsp;
+                <span class="cv-job-company">Infosys</span>
+              </div>
+              <span class="cv-job-period">Jan 2022 – Apr 2022 · Mauritius</span>
+            </div>
+            <ul>
+              <li>Managed Azure Pipelines using YAML; handled deployments to production and other environments.</li>
+            </ul>
+          </div>
+
+          <div class="cv-job">
+            <div class="cv-job-header">
+              <div>
+                <span class="cv-job-title">DevOps Engineer</span>
+                &nbsp;·&nbsp;
+                <span class="cv-job-company">Eclosia Technology Services Ltd</span>
+              </div>
+              <span class="cv-job-period">May 2021 – Dec 2021 · Mauritius</span>
+            </div>
+            <ul>
+              <li>Maintained D365 environments and legacy platforms; managed change requests and incident troubleshooting.</li>
+              <li>Monitored infrastructure and applications; ensured production monitoring processes were followed.</li>
+              <li>Participated in R&amp;D activities; handled RSAT installation and configuration.</li>
+            </ul>
+          </div>
+
+          <div class="cv-job">
+            <div class="cv-job-header">
+              <div>
+                <span class="cv-job-title">Application Development Analyst → Associate → New Associate</span>
+                &nbsp;·&nbsp;
+                <span class="cv-job-company">Accenture</span>
+              </div>
+              <span class="cv-job-period">Jan 2018 – Apr 2021 · Mauritius</span>
+            </div>
+            <ul>
+              <li>Deployed, configured, customised and maintained enterprise applications across multiple client projects.</li>
+              <li>Reverse-engineered and customised applications based on client requirements; developed custom scripts.</li>
+              <li>Managed deployment plans and development streams; mentored juniors and interns.</li>
+              <li>Completed 6-month Splunk internship project as part of Accenture Academy Batch 1.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- EDUCATION + CERTS -->
+        <div class="two-col">
+
+          <div class="cv-section">
+            <div class="cv-section-title">Education</div>
+
+            <div class="cv-edu-item">
+              <div class="cv-edu-degree">MSc in Applied Software Technologies</div>
+              <div class="cv-edu-school">University of Mauritius</div>
+              <div class="cv-edu-year">2018 – 2019</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-degree">BSc (Hons) Electronics with Computer Science</div>
+              <div class="cv-edu-school">University of Mauritius</div>
+              <div class="cv-edu-year">2013 – 2017</div>
+            </div>
+            <div class="cv-edu-item">
+              <div class="cv-edu-degree">Certificate in Advanced Telecommunications Applications Programming</div>
+              <div class="cv-edu-school">University of Mauritius</div>
+              <div class="cv-edu-year">2018</div>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Certifications</div>
+            <ul class="cv-cert-list">
+              <li>AWS Certified Cloud Practitioner</li>
+              <li>Deep Learning in Python</li>
+              <li>Business Analyst</li>
+              <li>Jumpstart to Automation Anywhere (Developer)</li>
+              <li>IQ Bot – Developer</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div><!-- /cv -->
+    </div><!-- /cv-card -->
+  </div><!-- /screen-wrapper -->
+
+  <script>
+    document.addEventListener('mousemove', e => {
+      const x = (e.clientX / window.innerWidth  - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      document.querySelector('.blob-1').style.transform = `translate(${x}px,${y}px)`;
+      document.querySelector('.blob-2').style.transform = `translate(${-x}px,${-y}px)`;
+    });
+  </script>
+</body>
+</html>
